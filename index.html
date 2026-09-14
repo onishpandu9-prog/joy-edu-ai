@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joy Edu AI - Learn Smart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Authentication Page -->
+    <div id="auth-page" class="page active">
+        <div class="auth-container">
+            <!-- Hexagon Logo with Star -->
+            <div class="logo-container">
+                <svg class="hexagon-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Hexagon -->
+                    <polygon points="100,20 170,55 170,145 100,180 30,145 30,55" 
+                             fill="none" stroke="#6366f1" stroke-width="3"/>
+                    <!-- Star in middle -->
+                    <polygon points="100,60 110,85 137,85 115,103 125,128 100,110 75,128 85,103 63,85 90,85" 
+                             fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <h1>Joy Edu AI</h1>
+            <p class="tagline">Learn Smart, Grow Smarter</p>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-google" onclick="handleGoogleAuth()">
+                    <span>🔍 Sign in with Google</span>
+                </button>
+                <button class="btn btn-facebook" onclick="handleFacebookAuth()">
+                    <span>👥 Sign in with Facebook</span>
+                </button>
+                <button class="btn btn-guest" onclick="handleGuestAuth()">
+                    <span>👤 Continue as Guest</span>
+                </button>
+                <button class="btn btn-signup" onclick="showSignup()">
+                    <span>✏️ Create New Account</span>
+                </button>
+            </div>
+            
+            <p class="education-notice">
+                ✓ Education Purpose Only - Safe Learning Environment
+            </p>
+        </div>
+    </div>
+
+    <!-- Welcome Page -->
+    <div id="welcome-page" class="page">
+        <div class="welcome-container">
+            <h2>Welcome to Joy Edu AI</h2>
+            <p>Your personalized AI learning assistant</p>
+            <button class="btn btn-primary" onclick="goToDashboard()">
+                Let's Start Learning →
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard-page" class="page">
+        <div class="dashboard-container">
+            <!-- Hamburger Menu -->
+            <div class="hamburger-menu">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Menu</h3>
+                    <button class="close-btn" onclick="toggleMenu()">✕</button>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item" onclick="viewRecent()">📚 Recently Searched</a>
+                    <a href="#" class="nav-item" onclick="viewCourses()">🎓 My Courses</a>
+                    <a href="#" class="nav-item" onclick="viewSaved()">💾 Saved Pages</a>
+                    <a href="#" class="nav-item" onclick="viewProfile()">👤 My Profile</a>
+                    <a href="#" class="nav-item" onclick="logout()">🚪 Logout</a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <header class="top-bar">
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search topics..." 
+                               onkeypress="handleSearch(event)">
+                        <div class="attachment-menu">
+                            <button class="dots-menu" onclick="toggleAttachmentMenu()">⋮</button>
+                            <div class="attachment-options" id="attachment-menu">
+                                <button onclick="openCamera()">📷 Camera</button>
+                                <button onclick="openGallery()">🖼️ Photo</button>
+                                <button onclick="openFiles()">📁 Files</button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="content-area">
+                    <div id="recent-searches" class="section">
+                        <h3>Recently Searched</h3>
+                        <div id="recent-list" class="recent-items">
+                            <p class="empty-state">No recent searches yet</p>
+                        </div>
+                    </div>
+
+                    <div id="main-section" class="section">
+                        <h3>Popular Learning Topics</h3>
+                        <div class="topics-grid">
+                            <div class="topic-card" onclick="searchTopic('Mathematics')">
+                                <span class="icon">🔢</span>
+                                <p>Mathematics</p>
+                            </div>
+                            <div class="topic-card" onclick="searchTopic('Science')">
+                                <span class="icon">🔬</span>
+                                <p>Science</p>
+                            </div>
+                            <div class="topic-card" onclick="searchTopic('History')">
+                                <span class="icon">📜</span>
+                                <p>History</p>
+                            </div>
+                            <div class="topic-card" onclick="searchTopic('Languages')">
+                                <span class="icon">🌐</span>
+                                <p>Languages</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-area" id="ai-chat">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message">
+                                <p>Hi! I'm your AI tutor. Ask me anything about education! 📚</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="Ask me anything about education..." 
+                                   onkeypress="handleChatInput(event)">
+                            <button onclick="sendMessage()">Send</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Warning Modal -->
+    <div id="warning-modal" class="modal">
+        <div class="modal-content">
+            <h3>⚠️ Warning</h3>
+            <p id="warning-message"></p>
+            <p class="warning-count">Warning <span id="warning-number">1</span>/3</p>
+            <button class="btn btn-primary" onclick="closeWarning()">I Understand</button>
+        </div>
+    </div>
+
+    <!-- Saved Page Modal -->
+    <div id="save-modal" class="modal">
+        <div class="modal-content">
+            <h3>✓ Page Saved</h3>
+            <p id="saved-page-name"></p>
+            <button class="btn btn-primary" onclick="closeSaveModal()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
